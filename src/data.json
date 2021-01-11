@@ -1,0 +1,44 @@
+{
+ "repo" : [
+        {
+            "name": "vanilla/addons",
+            "stargazers": 302,
+            "watcher": 81
+        }, 
+        {
+            "name": "vanilla/vanilla",
+            "stargazers": 455,
+            "watcher": 203
+        }, 
+        {
+            "name": "vanilla/addon-forks",
+            "stargazers": 310,
+            "watcher": 151
+        }, 
+        {
+            "name": "vanilla/prettier-config",
+            "stargazers": 170,
+            "watcher": 89
+        }, 
+        {
+            "name": "vanilla/babel-preset",
+            "stargazers": 189,
+            "watcher": 35
+        }, 
+        {
+            "name": "vanilla/garden-schema",
+            "stargazers": 280,
+            "watcher": 112
+        }, 
+        {
+            "name": "vanilla/garden-container",
+            "stargazers": 102,
+            "watcher": 27
+        }, 
+        {
+            "name": "vanilla/pquery",
+            "stargazers": 81,
+            "watcher": 19
+        }
+    ]
+}

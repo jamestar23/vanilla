@@ -1,0 +1,6 @@
+.Card {
+    margin-bottom: 2rem;
+    height: 200px;
+    overflow: hidden;
+    box-shadow: 0px 5px 5px 3px rgba(0, 0, 0, 0.15);
+}
