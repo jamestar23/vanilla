@@ -7,9 +7,12 @@ import axios from 'axios'
 const RepoList = () => {
     const [repos, setRepos] = useState([]);
     const [query, setQuery] = useState('vanilla');
-    const [toggleSort, setToggleSort] = useState('alphabet');
+    const [toggleSort, setToggleSort] = useState('alphabetical');
 
-    const sort = () => setToggleSort('star');
+    const sort = () => setToggleSort(toggleSort === 'alphabetical' ? 'bystar' : 'alphabetical');
+
+
+
 
     useEffect(() => {
         axios
@@ -20,7 +23,7 @@ const RepoList = () => {
     const repoList = repos
         .map(r=> {
             return (
-                <div className="col-4" key={r.id}>
+                <div className="col-sm-12 col-lg-4 col-md-6" key={r.id}>
                     <Card 
                         name={r.full_name} 
                         stargazers={r.stargazers_count} 
@@ -49,10 +52,10 @@ const RepoList = () => {
                     <div className={styles.sortButton}>
                         <div className="mr-3"><p>Sort by</p></div>
                         <div className="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                            <label className={`btn btn-outline-dark ${toggleSort === 'alphabet' ? 'active' : ''}`}>
+                            <label className={`btn btn-outline-dark ${toggleSort === 'alphabetical' ? 'active' : ''}`}>
                                 <input type="radio" name="options" id="option1" onClick={sort}/> <span>Alphabetical</span>
                             </label>
-                            <label className={`btn btn-outline-dark ${toggleSort === 'star' ? 'active' : ''}`}>
+                            <label className={`btn btn-outline-dark ${toggleSort === 'bystar' ? 'active' : ''}`}>
                                 <input type="radio" name="options" id="option2"  onClick={sort}/> <span>By Most Stars</span>
                             </label>
                         </div>
