@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from '../Card/Card';
 import styles from './RepoList.module.css';
 import axios from 'axios'
@@ -6,21 +6,32 @@ import axios from 'axios'
 
 const RepoList = () => {
     const [repos, setRepos] = useState([]);
-    const [query, setQuery] = useState('vanilla');
+    const [query, setQuery] = useState("vanilla");
     const [toggleSort, setToggleSort] = useState('alphabetical');
 
     const sort = () => setToggleSort(toggleSort === 'alphabetical' ? 'bystar' : 'alphabetical');
-
-
-
-
-    useEffect(() => {
+    
+    const search = queryValue => {
         axios
-            .get(`https://api.github.com/users/${query}/repos`)
-            .then(response => setRepos(response.data));
-    }, [query]);
-        
+            .get(`https://api.github.com/users/${queryValue}/repos`)
+            .then(response => setRepos(response.data))
+            .catch(err => {
+                console.log(err.response.data.error);
+            });
+    };
+
+    const handleSearchChange = (e) => setQuery(e.target.value);
+
+    const resetSearchBox = () => setQuery("");
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        search(query);
+        resetSearchBox();
+    }
+
     const repoList = repos
+        
         .map(r=> {
             return (
                 <div className="col-sm-12 col-lg-4 col-md-6" key={r.id}>
@@ -41,7 +52,19 @@ const RepoList = () => {
                     <nav className="navbar navbar-dark bg-dark">
                         <h1 className="navbar-brand">Github Repo Lister</h1>
                         <form className="form-inline">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search Users/Orgs" aria-label="Search" onChange={e => setQuery(e.target.value)} value={query} />
+                            <input 
+                                className="form-control mr-sm-2" 
+                                type="text" 
+                                placeholder="Search Users/Orgs" 
+                                onChange={handleSearchChange} 
+                                value={query} 
+                            />
+                            <input 
+                                className="btn btn-light my-2 my-sm-0"
+                                type="submit" 
+                                value="Search"
+                                onClick={handleSearchSubmit} 
+                            />
                         </form>
                     </nav>
                 </div>
@@ -53,10 +76,10 @@ const RepoList = () => {
                         <div className="mr-3"><p>Sort by</p></div>
                         <div className="btn-group btn-group-toggle mb-3" data-toggle="buttons">
                             <label className={`btn btn-outline-dark ${toggleSort === 'alphabetical' ? 'active' : ''}`}>
-                                <input type="radio" name="options" id="option1" onClick={sort}/> <span>Alphabetical</span>
+                                <input type="radio" name="sortOption" id="alphabetical" onClick={sort}/> <span>Alphabetical</span>
                             </label>
                             <label className={`btn btn-outline-dark ${toggleSort === 'bystar' ? 'active' : ''}`}>
-                                <input type="radio" name="options" id="option2"  onClick={sort}/> <span>By Most Stars</span>
+                                <input type="radio" name="sortOption" id="bystar"  onClick={sort}/> <span>By Most Stars</span>
                             </label>
                         </div>
                     </div>
